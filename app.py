@@ -61,6 +61,7 @@ def create(materia, tipo_tarea, fecha_entrega):
   except:
     print('No se pudo crear la Tarea!')
 
+
 def read():
   cursor.execute('SELECT * FROM Lista')
   tasks = cursor.fetchall()
@@ -68,14 +69,36 @@ def read():
   for task in tasks:
     print(task)
 
+
+def update():
+  read()
+  get_id = int(input('Escriba el id de la tarea a actulizar: '))
+  cursor.execute(f'SELECT * FROM Lista WHERE id = {get_id}')
+  get_task = cursor.fetchall()
+  for i in get_task:
+    i = i[0]
+    print('materia | tipo_tarea | fecha_entrega | hecha')
+    campo = input('¿Que desea actualizar?: ')
+    campo.lower
+    nuevo_valor = input('Diga el nuevo valor del campo: ')
+    try:
+      cursor.execute(f'UPDATE Lista SET {campo} = "{nuevo_valor}" WHERE id = {i}')
+      print('Tarea Actualizada con exito!')
+    except:
+      return 'Ha ocurrido un error'
+
+
 def opciones():
   print('1 - Crear Tareas')
   print('2 - Ver Tareas')
+  print('3 - Actualizar Tareas')
   opcion = input('¿Qué desea hacer?: ')
   if opcion == '1':
     return dates_for_task(materias)
   elif opcion == '2':
     return read()
+  elif opcion == '3':
+    return update()
   else:
     print('Opción Inválida. Intente de nuevo.')
     return opciones()
