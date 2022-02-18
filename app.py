@@ -9,7 +9,8 @@ try:
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       materia STRING,
       tipo_tarea STRING,
-      fecha_entrega DATETIME
+      fecha_entrega DATETIME,
+      hecha BOOLEAN
     )
   '''
   )
@@ -52,13 +53,13 @@ def dates_for_task(materias):
 
 def create(materia, tipo_tarea, fecha_entrega):
   index_task = [
-    (materia, tipo_tarea, fecha_entrega)
+    (materia, tipo_tarea, fecha_entrega, False)
   ]
   try:
-    cursor.executemany('INSERT INTO Lista VALUES (NULL, ?, ?, ?)', index_task)
-    return 'Tarea Creada Exitosamente!'
+    cursor.executemany('INSERT INTO Lista VALUES (NULL, ?, ?, ?, ?)', index_task)
+    print('Tarea Creada Exitosamente!')
   except:
-    return 'No se pudo crear la Tarea!'
+    print('No se pudo crear la Tarea!')
 
 def read():
   cursor.execute('SELECT * FROM Lista')
