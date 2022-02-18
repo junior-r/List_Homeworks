@@ -88,10 +88,25 @@ def update():
       return 'Ha ocurrido un error'
 
 
+def delete():
+  read()
+  get_id = int(input('Escriba el id de la tarea a actulizar: '))
+  cursor.execute(f'SELECT * FROM Lista WHERE id = {get_id}')
+  get_task = cursor.fetchall()
+  for i in get_task:
+    i = i[0]
+    prevencion = input('¿Está seguro que desea borrar permanentemente esta Tarea?: ')
+    prevencion.lower
+    if prevencion == 'si':
+      cursor.execute(f'DELETE FROM Lista WHERE ID = {i}')
+      print('Registro borrado con exito!')
+
+
 def opciones():
   print('1 - Crear Tareas')
   print('2 - Ver Tareas')
   print('3 - Actualizar Tareas')
+  print('4 - Borrar Tareas')
   opcion = input('¿Qué desea hacer?: ')
   if opcion == '1':
     return dates_for_task(materias)
@@ -99,6 +114,8 @@ def opciones():
     return read()
   elif opcion == '3':
     return update()
+  elif opcion == '4':
+    return delete()
   else:
     print('Opción Inválida. Intente de nuevo.')
     return opciones()
