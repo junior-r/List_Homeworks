@@ -60,11 +60,21 @@ def create(materia, tipo_tarea, fecha_entrega):
   except:
     return 'No se pudo crear la Tarea!'
 
+def read():
+  cursor.execute('SELECT * FROM Lista')
+  tasks = cursor.fetchall()
+  print('---------- Total de Tareas ----------')
+  for task in tasks:
+    print(task)
+
 def opciones():
   print('1 - Crear Tareas')
+  print('2 - Ver Tareas')
   opcion = input('¿Qué desea hacer?: ')
   if opcion == '1':
     return dates_for_task(materias)
+  elif opcion == '2':
+    return read()
   else:
     print('Opción Inválida. Intente de nuevo.')
     return opciones()
