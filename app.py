@@ -56,14 +56,20 @@ def create(materia, tipo_tarea, fecha_entrega):
   ]
   try:
     cursor.executemany('INSERT INTO Lista VALUES (NULL, ?, ?, ?)', index_task)
-    return 'Tarea Creada Exitosamente!'.upper()
+    return 'Tarea Creada Exitosamente!'
   except:
-    return 'No se pudo crear la Tarea!'.upper()
+    return 'No se pudo crear la Tarea!'
 
-crear_task = input('¿Desea crear una tarea?: ')
-while crear_task.lower() == 'si':
-  print(dates_for_task(materias))
-  crear_task = input('¿Desea crear una tarea?: ')
+def opciones():
+  print('1 - Crear Tareas')
+  opcion = input('¿Qué desea hacer?: ')
+  if opcion == '1':
+    return dates_for_task(materias)
+  else:
+    print('Opción Inválida. Intente de nuevo.')
+    return opciones()
+
+opciones()
 
 conexion.commit()
 conexion.close()
