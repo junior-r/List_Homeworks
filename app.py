@@ -32,12 +32,13 @@ materias = {
 
 
 def dates_for_task(materias):
-  print('---------- Creating Tasks ----------')
+  print('----------- Creating Tasks -----------')
   for k, v in materias.items():
     if len(k) != 1:
       print(k, '-', v)
     else:
       print(k, '-' * 2, v)
+  print('---------- Datos Requeridos ----------')
   materia = input('Ingrese el número de la Materia: ')
   tipo_tarea = input('Ingrese el tipo de Tarea: ')
   fecha_entrega = input('Siguiendo el formato DD/MM/AAAA. Ingrese la fecha de entrega: ')
@@ -45,8 +46,19 @@ def dates_for_task(materias):
     list_k = list(k)
     k = ''.join(list_k)
     if materia == k:
-      print('materia valida', v)
+      materia = v
+      return create(materia, tipo_tarea, fecha_entrega)
 
+
+def create(materia, tipo_tarea, fecha_entrega):
+  index_task = [
+    (materia, tipo_tarea, fecha_entrega)
+  ]
+  try:
+    cursor.executemany('INSERT INTO Lista VALUES (NULL, ?, ?, ?)', index_task)
+    return 'Tarea Creada Exitosamente!'.upper()
+  except:
+    return 'No se pudo crear la Tarea!'.upper()
 
 crear_task = input('¿Desea crear una tarea?: ')
 while crear_task.lower() == 'si':
