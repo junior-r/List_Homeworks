@@ -90,7 +90,7 @@ def update():
 
 def delete():
   read()
-  get_id = int(input('Escriba el id de la tarea a actulizar: '))
+  get_id = int(input('Escriba el id de la tarea a borrar: '))
   cursor.execute(f'SELECT * FROM Lista WHERE id = {get_id}')
   get_task = cursor.fetchall()
   for i in get_task:
